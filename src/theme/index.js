@@ -1,10 +1,11 @@
 import { Platform } from "react-native";
 
 export const colors = {
-    background: '#13e0ef',
+    background: '#ffffff',
     surface: '#ffffff',
-    text: '#111827',
-    border: '#bbecf0'
+    text: '#000000',
+    border: '#000000',
+    buttons: '#ff5b31'
 }
 
 //Espaciado: es la separación de las letras y los componentes
