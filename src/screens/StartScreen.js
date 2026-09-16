@@ -8,9 +8,11 @@ import { CLASES, NIVELES } from '../data/classes'
 import NivelChip from '../components/NivelChip'
 import Card from '../components/Card'
 import useResponsive from '../hooks/useResponsive'
+import EstadoVacio from '../components/EstadoVacio'
 
 export default function StartScreen ({ navigation }){
     const insets = useSafeAreaInsets();
+    const {columnas, paddingHorizontal} = useResponsive();
 
     const [nivel, setNivel] = useState('Todos');
     const [busqueda, setBusqueda] = useState('');
@@ -72,7 +74,7 @@ export default function StartScreen ({ navigation }){
             <FlatList 
                 data={resultados}
                 keyExtractor={(item)=> item.id}
-                renderItem={(item)=>(
+                renderItem={({item})=>(
                     <Card 
                         clase={item}
                         onPress={()=> navigation.navigate('DetalleClase', {clase:item})}
@@ -82,6 +84,18 @@ export default function StartScreen ({ navigation }){
                     paddingHorizontal,
                     flexGrow: 1
                 }}
+                numColumns={columnas}
+                ListEmptyComponent={
+                    <EstadoVacio 
+                        icono="search-outline"
+                        titulo="No encontramos resultados"
+                        mensaje="Prueba con otra combinación de palabras"
+                        onAction={()=> {
+                            setNivel('Todos');
+                            setBusqueda('');
+                        }}
+                    />
+                }
             />
         </View>
     )
