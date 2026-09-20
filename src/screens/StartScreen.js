@@ -34,29 +34,35 @@ export default function StartScreen ({ navigation }){
         <View style = {[style.pantalla, {paddingTop: insets.top + spacing.md}]}>
             <View>
                 <Text style={typography.title}>Aplicación de reserva para clases de inglés</Text>
-                <Ionicons name="search" size={18} color={colors.text}/>
-                <TextInput 
-                    value={busqueda}
-                    onChangeText={setBusqueda}
-                    placeholder="Ingrese el nombre o nivel para la búsqueda"
-                    autoCorrect={false}
-                    autoComplete="off"
-                />
-                {
-                    busqueda.length > 0 && (
-                        <Ionicons 
-                            name="close-circle"
-                            size={18} 
-                            color={colors.background}
-                            onPress={()=> setBusqueda('')}
-                        />
-                    )
-                }
+
+                <View style={style.buscador}>
+                    <Ionicons name="search" size={18} color={colors.text}/>
+                    <TextInput 
+                        value={busqueda}
+                        onChangeText={setBusqueda}
+                        placeholder="Ingrese el nombre o nivel para la búsqueda"
+                        placeholderTextColor={colors.border}
+                        autoCorrect={false}
+                        autoComplete="off"
+                        style={style.input}
+                    />
+                    {
+                        busqueda.length > 0 && (
+                            <Pressable onPress={() => setBusqueda('')} hitSlop={8}>
+                                <Ionicons 
+                                    name="close-circle"
+                                    size={18} 
+                                    color={colors.border}
+                                />
+                            </Pressable>
+                        )
+                    }
+                </View>
             </View>
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator = {false}
-                style={{flexGrow: 0}}
+                style={{flexGrow: 1, marginVertical: spacing.sm, marginBottom: spacing.lg}}
             >
                 {
                     NIVELES.map((item) => (
@@ -82,7 +88,8 @@ export default function StartScreen ({ navigation }){
                 )}
                 contentContainerStyle={{
                     paddingHorizontal,
-                    flexGrow: 1
+                    flexGrow: 1,
+                    marginBottom: insets.bottom + spacing.lg
                 }}
                 numColumns={columnas}
                 ListEmptyComponent={

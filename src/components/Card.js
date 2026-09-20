@@ -8,18 +8,23 @@ export default function Card({ clase, onPress }) {
     return (
         <Pressable
             onPress={onPress}>
-                <Image source={{uri: clase.imagen}}/>
-                <View>
+                <View style={{marginBottom: spacing.lg}}>
                     <EtiquetaNivel nivel={clase.nivel}/>
-                    <Text style={styles.titulo}>{clase.titulo}</Text>
+                    <Text style={styles.title}>{clase.titulo}</Text>
+                    <Image source={{ uri: clase.imagen }} resizeMode="cover" style={styles.imagen} />
                     <Text>{clase.nivel}</Text>
                     <Text>{clase.profesor.nombre}</Text>
-                    <Text>formatearPrecio({clase.precio})</Text>
+                    <Text>{formatearPrecio(clase.precio)}</Text>
                 </View>
         </Pressable>
     )
 }
 
 const styles = StyleSheet.create({
-    titulo: {fontSize: 16, color: colors.text}
+    title: { fontSize: 16, fontWeight: '600', color: colors.text },
+    imagen: {
+        width: '100%',
+        height: 180, // o el alto que quieras
+        borderRadius: radius.md, // opcional
+    }
 })
