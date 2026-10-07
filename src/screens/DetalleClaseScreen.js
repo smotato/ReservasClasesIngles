@@ -89,7 +89,7 @@ export default function DetalleClaseScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   pantalla: { flex: 1, backgroundColor: colors.background },
-  portada: { width: '100%', backgroundColor: colors.surface },
+  portada: { width: '100%', height: 250,backgroundColor: colors.surface },
   contenido: { padding: spacing.lg, gap: spacing.lg },
   datos: {
     flexDirection: 'row',

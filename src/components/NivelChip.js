@@ -9,7 +9,7 @@ export default function NivelChip ({etiqueta, activo, onPress}) {
         style={({pressed}) => [
             style.chip, activo && style.chipActivo, pressed && {opacity: 0.7}
         ]}>
-            <Text style={[style.texto, activo && style.textoActivo]}> {etiqueta} </Text>
+            <Text style={[style.texto, activo && style.textoActivo]}>{etiqueta}</Text>
         </Pressable>
     )
 }
@@ -18,11 +18,13 @@ const style = StyleSheet.create({
   chip: {
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.lg,
-    borderRadius: radius.full,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.text,
     borderWidth: 0,
     borderColor: colors.text,
-    marginRight: spacing.sm,
+    marginRight: spacing.xs,
   },
   chipActivo: {
     backgroundColor: colors.buttons,

@@ -21,10 +21,10 @@ const temaNavegacion = {
 export default function App() {
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={temaNavegacion}>
-        <StatusBar style="dark" />
-        <ClasesStack />
-      </NavigationContainer>
+        <NavigationContainer theme={temaNavegacion}>
+          <StatusBar style="dark" />
+          <ClasesStack />
+        </NavigationContainer>
     </SafeAreaProvider>
   );
 }
