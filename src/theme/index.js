@@ -5,7 +5,10 @@ export const colors = {
     surface: '#ffffff',
     text: '#000000',
     border: '#000000',
-    buttons: '#ff5b31'
+    buttons: '#ff5b31',
+    backgroundSoft: '#F4F5F7', // fondo gris claro de pantallas
+    textMuted: '#6B7280',      // texto secundario
+    borderSoft: '#E3E5E8',     // bordes y divisores suaves
 }
 
 //Espaciado: es la separación de las letras y los componentes

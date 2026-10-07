@@ -6,6 +6,7 @@ import ClasesStack from './src/navigation/ClasesStack';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from './src/theme';
 import { ReservasProvider } from './src/context/ReservasContext';
+import AppTabs from './src/navigation/AppTabs';
 
 const temaNavegacion = {
   ...DefaultTheme,
@@ -25,7 +26,7 @@ export default function App() {
       <ReservasProvider>
         <NavigationContainer theme={temaNavegacion}>
           <StatusBar style="dark" />
-          <ClasesStack />
+          <AppTabs />
         </NavigationContainer>
       </ReservasProvider>
     </SafeAreaProvider>

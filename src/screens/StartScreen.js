@@ -8,11 +8,6 @@ import Card from '../components/Card'
 import useResponsive from '../hooks/useResponsive'
 import EstadoVacio from '../components/EstadoVacio'
 
-// Colores locales (no modifican el tema global)
-const GRIS_FONDO = '#F4F5F7'
-const GRIS_TEXTO = '#6B7280'
-const GRIS_BORDE = '#E3E5E8'
-
 export default function StartScreen({ navigation }) {
     const insets = useSafeAreaInsets();
     const { columnas, paddingHorizontal } = useResponsive();
@@ -44,19 +39,19 @@ export default function StartScreen({ navigation }) {
                 <Text style={style.titulo}>Aplicación de reserva para clases de inglés</Text>
 
                 <View style={style.buscador}>
-                    <Ionicons name="search" size={18} color={GRIS_TEXTO} />
+                    <Ionicons name="search" size={18} color={colors.textMuted} />
                     <TextInput
                         value={busqueda}
                         onChangeText={setBusqueda}
                         placeholder="Busca por nombre o nivel"
-                        placeholderTextColor={GRIS_TEXTO}
+                        placeholderTextColor={colors.textMuted}
                         autoCorrect={false}
                         autoComplete="off"
                         style={style.input}
                     />
                     {busqueda.length > 0 && (
                         <Pressable onPress={() => setBusqueda('')} hitSlop={8}>
-                            <Ionicons name="close-circle" size={18} color={GRIS_TEXTO} />
+                            <Ionicons name="close-circle" size={18} color={colors.textMuted} />
                         </Pressable>
                     )}
                 </View>
@@ -129,7 +124,7 @@ export default function StartScreen({ navigation }) {
 }
 
 const style = StyleSheet.create({
-    pantalla: { flex: 1, backgroundColor: GRIS_FONDO },
+    pantalla: { flex: 1, backgroundColor: colors.backgroundSoft },
 
     cabecera: {
         backgroundColor: colors.text,
@@ -177,7 +172,7 @@ const style = StyleSheet.create({
         borderRadius: radius.full,
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
-        borderColor: GRIS_BORDE,
+        borderColor: colors.borderSoft,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -191,7 +186,7 @@ const style = StyleSheet.create({
     contador: {
         fontSize: 13,
         fontWeight: '600',
-        color: GRIS_TEXTO,
+        color: colors.textMuted,
         marginTop: spacing.lg,
         marginBottom: spacing.xs,
     },

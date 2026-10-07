@@ -5,9 +5,6 @@ import EtiquetaNivel from './EtiquetaNivel'
 import { colors, radius, spacing } from '../theme'
 import { formatearPrecio } from '../data/classes'
 
-const GRIS_TEXTO = '#6B7280'
-const GRIS_BORDE = '#E3E5E8'
-
 export default function Card({ clase, onPress }) {
     return (
         <Pressable
@@ -37,7 +34,7 @@ export default function Card({ clase, onPress }) {
                         {clase.profesor.foto ? (
                             <Image source={{ uri: clase.profesor.foto }} style={styles.avatar} />
                         ) : (
-                            <Ionicons name="person-circle-outline" size={24} color={GRIS_TEXTO} />
+                            <Ionicons name="person-circle-outline" size={24} color={colors.textMuted} />
                         )}
                         <Text style={styles.profesorNombre} numberOfLines={1}>
                             {clase.profesor.nombre}
@@ -74,12 +71,12 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
-        borderColor: GRIS_BORDE,
+        borderColor: colors.borderSoft,
     },
     imagen: {
         width: '100%',
         height: 180,
-        backgroundColor: GRIS_BORDE,
+        backgroundColor: colors.borderSoft,
     },
     etiqueta: {
         position: 'absolute',
@@ -105,12 +102,12 @@ const styles = StyleSheet.create({
         width: 24,
         height: 24,
         borderRadius: 12,
-        backgroundColor: GRIS_BORDE,
+        backgroundColor: colors.borderSoft,
     },
     profesorNombre: {
         flex: 1,
         fontSize: 14,
-        color: GRIS_TEXTO,
+        color: colors.textMuted,
         fontWeight: '500',
     },
     pie: {
@@ -118,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         borderTopWidth: 1,
-        borderTopColor: GRIS_BORDE,
+        borderTopColor: colors.borderSoft,
         paddingTop: spacing.md,
     },
     precio: {
