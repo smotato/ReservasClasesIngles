@@ -5,10 +5,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EtiquetaNivel from "../components/EtiquetaNivel";
 import { colors, spacing, typography, radius } from "../theme";
 import { formatearPrecio } from "../data/classes";
+import useReserva from "../hooks/useReserva";
 
 export default function DetalleClaseScreen({ route, navigation }) {
   const insets = useSafeAreaInsets();
-  
+  const { agregarReserva } = useReserva();
   const { clase } = route.params;
   const [cuposDisponibles, setCuposDisponibles] = useState(clase.cupos);
 
@@ -16,10 +17,11 @@ export default function DetalleClaseScreen({ route, navigation }) {
     if (cuposDisponibles <= 0) {
       Alert.alert('Sin cupos', 'No se puede reservar, no hay cupos disponibles.');
       return;
-    } else {
-      Alert.alert('Reserva exitosa', 'Has reservado la clase exitosamente.');
-    }
+    } 
 
+    agregarReserva(clase);
+
+    Alert.alert('Reserva exitosa', 'Has reservado la clase exitosamente.');
     setCuposDisponibles((prev) => prev - 1);
   };
 

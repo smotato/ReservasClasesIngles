@@ -15,7 +15,7 @@ export default function useAlmacenamiento(key, initialValue) {
             }
         })
         .catch((error) => {
-            console.log('Error leyendo'+ key, error);
+            console.log('Error leyendo '+ key, error);
         })
         .finally(() => activo && setListo(true));
 
@@ -30,8 +30,10 @@ export default function useAlmacenamiento(key, initialValue) {
             try {
                 await AsyncStorage.setItem(key, JSON.stringify(nuevoValor));
             } catch (error) {
-                console.log('Error guardando'+ key, error);
+                console.log('Error guardando '+ key, error);
             }
         }, [key]
     );
+
+    return [value, actualizar, listo];
 };
