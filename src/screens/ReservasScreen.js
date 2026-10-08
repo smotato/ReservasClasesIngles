@@ -9,7 +9,7 @@ import useReserva from '../hooks/useReserva'
 
 export default function ReservasScreen({ navigation }) {
     const insets = useSafeAreaInsets();
-    const { reservas } = useReserva();
+    const { reservas, cancelarReserva } = useReserva();
 
     const [busqueda, setBusqueda] = useState('');
 
@@ -34,8 +34,7 @@ export default function ReservasScreen({ navigation }) {
                     text: 'Sí, cancelar',
                     style: 'destructive',
                     onPress: () => {
-                        // TODO: conectar con el context (cancelarReserva(id))
-                        console.log('Cancelar reserva con id:', id);
+                        cancelarReserva(id);
                     },
                 },
             ]

@@ -7,13 +7,7 @@ const CLAVE_RESERVAS = '@reservas_ingles';
 export const ReservasContext = createContext(null);
 
 export function ReservasProvider({children}) {
-    const [reservas, setReservas, listo] = useAlmacenamiento(CLAVE_RESERVAS, []);
-    
-    useEffect(() => {
-        if (cargando) return;
-        console.log('RESERVAS EN MEMORIA:', JSON.stringify(reservas, null, 2));
-    }, [reservas, cargando]);
-    
+    const [reservas, setReservas, listo] = useAlmacenamiento(CLAVE_RESERVAS, []);    
     const cargando = !listo;
 
     const agregarReserva = useCallback((clase, horario) => {
@@ -44,9 +38,15 @@ export function ReservasProvider({children}) {
         return {ok: true};
     }, [reservas, setReservas, cargando]);
 
+    const cancelarReserva = useCallback((id) => {
+        const nuevas = reservas.filter((r) => r.id !== id);
+        setReservas(nuevas);
+    }, [reservas, setReservas]);
+
+
     const value = useMemo(
-        () => ({ reservas, cargando, agregarReserva }),
-        [reservas, cargando, agregarReserva]
+        () => ({ reservas, cargando, agregarReserva, cancelarReserva }),
+        [reservas, cargando, agregarReserva, cancelarReserva]
     );
  
     return (
