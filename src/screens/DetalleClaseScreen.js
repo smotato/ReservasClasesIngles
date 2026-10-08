@@ -12,6 +12,7 @@ export default function DetalleClaseScreen({ route, navigation }) {
   const { agregarReserva } = useReserva();
   const { clase } = route.params;
   const [cuposDisponibles, setCuposDisponibles] = useState(clase.cupos);
+  const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
 
   const handleReservar = () => {
     if (cuposDisponibles <= 0) {
@@ -19,7 +20,26 @@ export default function DetalleClaseScreen({ route, navigation }) {
       return;
     } 
 
-    agregarReserva(clase);
+    if (!horarioSeleccionado) {
+      Alert.alert('Selecciona un horario', 'Elige uno de los horarios disponibles.');
+      return;
+    }
+
+    const resultado = agregarReserva(clase, horarioSeleccionado);
+
+    if (!resultado.ok) {
+      if (resultado.motivo === 'duplicada') {
+        Alert.alert('Ya reservada', 'Ya tienes esta clase en ese horario.');
+      } else if (resultado.motivo === 'cruce') {
+        Alert.alert(
+          'Horario ocupado',
+          `Se cruza con "${resultado.conflicto.titulo}" (${resultado.conflicto.horario}).`
+        );
+      } else {
+        Alert.alert('Un momento', 'Aún se están cargando tus reservas, intenta de nuevo.');
+      }
+      return;
+    }
 
     Alert.alert('Reserva exitosa', 'Has reservado la clase exitosamente.');
     setCuposDisponibles((prev) => prev - 1);
@@ -66,12 +86,21 @@ export default function DetalleClaseScreen({ route, navigation }) {
           <View style={styles.horarios}>
             <Text style={styles.subtitulo}>Horarios disponibles</Text>
             <View style={styles.listaHorarios}>
-              {clase.horarios.map((horario) => (
-                <View key={horario} style={styles.horario}>
-                  <Ionicons name="calendar-outline" size={16} color={colors.buttons} />
-                  <Text style={styles.horarioTexto}>{horario}</Text>
-                </View>
-              ))}
+              {clase.horarios.map((horario) => {
+                const activo = horario === horarioSeleccionado;
+                return (
+                <Pressable 
+                  key={horario}
+                  onPress={() => setHorarioSeleccionado(horario)}
+                  style={[styles.horario, activo && styles.horarioActivo]}
+                >
+                  <Ionicons name="calendar-outline" size={16} color={activo ? colors.surface : colors.buttons} />
+                  <Text style={[styles.horarioTexto, activo && styles.horarioTextoActivo]}>
+                    {horario}
+                  </Text>
+                </Pressable>
+              );
+  })}
             </View>
           </View>
 
@@ -133,7 +162,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
+  horarioActivo: { backgroundColor: colors.buttons, borderColor: colors.buttons },
   horarioTexto: { fontSize: 13, fontWeight: '600', color: colors.text },
+  horarioTextoActivo: { color: colors.surface },
   boton: {
     backgroundColor: colors.buttons,
     borderRadius: radius.lg,

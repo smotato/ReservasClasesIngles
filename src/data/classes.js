@@ -125,3 +125,25 @@ export const CLASES = [
  
 export const formatearPrecio = (valor) =>
   '$' + valor.toLocaleString('es-CO') + ' COP';
+
+export const formatearHorario = (texto) => {
+  const [dia, hora, periodoTiempo] = texto.split(' ');
+  let [h, pt] = hora.split(':').map(Number);
+
+  if (periodoTiempo === 'p.m.' && h !== 12) h += 12;
+  if (periodoTiempo === 'a.m.' && h === 12) h = 0;
+
+  return { dia, inicio: h * 60 + pt };
+};
+
+export const validarHorario = (horarioA, duracionA, horarioB, duracionB) => {
+  const a = formatearHorario(horarioA);
+  const b = formatearHorario(horarioB);
+
+  if (a.dia !== b.dia) return false;
+
+  const finA = a.inicio + duracionA;
+  const finB = b.inicio + duracionB;
+
+  return a.inicio < finB && b.inicio < finA;
+};
