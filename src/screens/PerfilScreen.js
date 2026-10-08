@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, TextInput, Image, StyleSheet } from "react-native";
+import { View, Text, Pressable, TextInput, Image, Alert, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import usePerfil from "../hooks/usePerfil";
 import RegistrarPerfil from "../components/RegistrarPerfil";
 import { colors, spacing, radius, typography } from "../theme";
@@ -7,6 +8,21 @@ import { colors, spacing, radius, typography } from "../theme";
 export default function PerfilScreen() {
   const { perfil, registrarPerfil, editarPerfil } = usePerfil();
   const [mostrarRegistro, setMostrarRegistro] = useState(false);
+
+  const handleEliminar = () => {
+    Alert.alert(
+      "Eliminar perfil",
+      "¿Seguro que quieres eliminar tu perfil?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Eliminar",
+          style: "destructive",
+          onPress: () => registrarPerfil(null),
+        },
+      ]
+    );
+  };
 
   if (!perfil) {
     return (
@@ -34,7 +50,7 @@ export default function PerfilScreen() {
     <View style={styles.pantalla}>
       <View style={styles.card}>
         <Text style={styles.titulo}>Mi Perfil</Text>
-        <Image source={{ uri: "https://i.pravatar.cc/200?img=47" }} style={styles.avatar} />
+        <Image source={{ uri: "https://i.pravatar.cc/200?img=12" }} style={styles.avatar} />
         <Text style={styles.label}>Nombre</Text>
         <Text style={styles.valor}>{perfil.nombre}</Text>
 
@@ -53,6 +69,11 @@ export default function PerfilScreen() {
           onChangeText={(text) => editarPerfil({ telefono: text })}
           placeholderTextColor={colors.textMuted}
         />
+
+        <Pressable style={styles.botonEliminar} onPress={handleEliminar}>
+          <Ionicons name="trash-outline" size={20} color={colors.surface} />
+          <Text style={styles.botonTexto}>Eliminar perfil</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -64,17 +85,30 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundSoft,
     padding: spacing.lg,
   },
-  avatar: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.border },
   card: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.lg,
     gap: spacing.md,
   },
+  encabezado: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.md,
+    marginBottom: spacing.md,
+  },
+  avatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: colors.borderSoft,
+    borderWidth: 2,
+    borderColor: colors.buttons,
+  },
   titulo: {
     ...typography.title,
     fontSize: 22,
-    marginBottom: spacing.md,
+    color: colors.text,
   },
   textoVacio: {
     fontSize: 16,
@@ -108,6 +142,16 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     paddingVertical: spacing.md,
     alignItems: "center",
+  },
+  botonEliminar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.sm,
+    backgroundColor: colors.buttons,
+    borderRadius: radius.lg,
+    paddingVertical: spacing.md,
+    marginTop: spacing.lg,
   },
   botonTexto: {
     color: colors.surface,
