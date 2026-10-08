@@ -6,7 +6,7 @@ const CLAVE_RESERVAS = '@reservas_ingles';
 
 export const ReservasContext = createContext(null);
 
-export function ReservasProvider({children}) {
+export function ReservasProvider({ children }) {
     const [reservas, setReservas, listo] = useAlmacenamiento(CLAVE_RESERVAS, []);    
     const cargando = !listo;
 
