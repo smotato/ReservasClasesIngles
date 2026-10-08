@@ -147,3 +147,8 @@ export const validarHorario = (horarioA, duracionA, horarioB, duracionB) => {
 
   return a.inicio < finB && b.inicio < finA;
 };
+
+export const formatearCuposDisponibles = (clase, reservas) => {
+  const reservasDeClase = reservas.filter(r => r.id.startsWith(clase.id));
+  return clase.cupos - reservasDeClase.length;
+};

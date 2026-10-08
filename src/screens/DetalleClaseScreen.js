@@ -4,15 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EtiquetaNivel from "../components/EtiquetaNivel";
 import { colors, spacing, typography, radius } from "../theme";
-import { formatearPrecio } from "../data/classes";
+import { formatearPrecio, formatearCuposDisponibles } from "../data/classes";
 import useReserva from "../hooks/useReserva";
 
 export default function DetalleClaseScreen({ route, navigation }) {
   const insets = useSafeAreaInsets();
-  const { agregarReserva } = useReserva();
+  const { reservas, agregarReserva } = useReserva();
   const { clase } = route.params;
-  const [cuposDisponibles, setCuposDisponibles] = useState(clase.cupos);
   const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
+  const cuposDisponibles = formatearCuposDisponibles(clase, reservas);
 
   const handleReservar = () => {
     if (cuposDisponibles <= 0) {
@@ -42,7 +42,6 @@ export default function DetalleClaseScreen({ route, navigation }) {
     }
 
     Alert.alert('Reserva exitosa', 'Has reservado la clase exitosamente.');
-    setCuposDisponibles((prev) => prev - 1);
   };
 
   return (
